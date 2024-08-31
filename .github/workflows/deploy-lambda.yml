@@ -3,7 +3,7 @@ name: Deploy Lambda Function
 on:
   push:
     branches:
-      - main  # or any branch you want to trigger the workflow on
+      - main # or any branch you want to trigger the workflow on
 
 jobs:
   build-and-deploy:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'  # Use the version of Python that matches your Lambda runtime
+          python-version: "3.x" # Use the version of Python that matches your Lambda runtime
 
       - name: Install dependencies
         run: |
@@ -27,15 +27,17 @@ jobs:
         run: |
           zip -r my_lambda_function.zip .
 
-      - name: Upload Lambda function to AWS
-        uses: aws-actions/aws-lambda-update-function-code@v1
-        with:
-          function-name: csvsplitter
-          zip-file: my_lambda_function.zip
+      - name: Install AWS CLI
+        run: |
+          pip install awscli
+
+      - name: Deploy Lambda function
+        run: |
+          aws lambda update-function-code --function-name csvsplitter --zip-file fileb://my_lambda_function.zip
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: your-region  # e.g., 'us-east-1'
+          AWS_REGION: "ap-south-1"
 
       - name: Clean up
         run: |
