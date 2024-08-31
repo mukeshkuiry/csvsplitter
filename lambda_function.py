@@ -66,7 +66,7 @@ def lambda_handler(event, context):
         logging.info("Lambda function completed successfully.")
         return {
             'statusCode': 200,
-            'body': 'CSV processing completed successfully'
+            'body': 'CSV processing completed successfully with happy ending :)'
         }
     except Exception as e:
         logging.error(f"Lambda function failed: {e}")   
