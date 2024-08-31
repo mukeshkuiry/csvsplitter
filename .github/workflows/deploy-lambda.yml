@@ -3,7 +3,7 @@ name: Deploy Lambda Function
 on:
   push:
     branches:
-      - main # or any branch you want to trigger the workflow on
+      - main
 
 jobs:
   build-and-deploy:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.x" # Use the version of Python that matches your Lambda runtime
+          python-version: "3.12"
 
       - name: Install dependencies
         run: |
